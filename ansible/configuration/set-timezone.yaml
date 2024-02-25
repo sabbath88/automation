@@ -1,6 +1,6 @@
 ---
 - name: Set timezone to Asia/Tokyo
-  #hosts: your_ubuntu_host
+  hosts: all
   #become: yes  # To run tasks with sudo privileges
 
   tasks:
