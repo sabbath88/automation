@@ -1,9 +1,9 @@
 ---
-- name: Set timezone to Asia/Tokyo
+- name: Set timezone to Europe/Warsaw
   hosts: all
   #become: yes  # To run tasks with sudo privileges
 
   tasks:
-    - name: Set timezone to Asia/Tokyo
+    - name: Set timezone to Europe/Warsaw
       community.general.timezone:
-        name: Asia/Tokyo
+        name: Europe/Warsaw
