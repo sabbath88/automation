@@ -1,12 +1,15 @@
 ---
-- name: Install all critical and security updates
-  win_updates:
-    category_names:
-    - CriticalUpdates
-    - SecurityUpdates
-    state: installed
-  register: update_result
+- name: Update Windows Servers
+  hosts: all
+  tasks:
+    - name: Install all critical and security updates
+      win_updates:
+        category_names:
+          - SecurityUpdates
+          - CriticalUpdates
+        state: installed
+      register: update_result
 
-- name: Reboot host if required
-  win_reboot:
-  when: update_result.reboot_required
+    - name: Display update results
+      debug:
+        var: update_result
