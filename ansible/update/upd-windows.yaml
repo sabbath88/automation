@@ -1,15 +1,5 @@
 ---
-- name: Update Windows Servers
-  hosts: all
-  tasks:
-    - name: Install all critical and security updates
-      win_updates:
-        category_names:
-          - SecurityUpdates
-          - CriticalUpdates
-        state: installed
-      register: update_result
-
-    - name: Display update results
-      debug:
-        var: update_result
+- name: Install all updates and reboot as many times as needed
+  ansible.windows.win_updates:
+    category_names: '*'
+    reboot: true
