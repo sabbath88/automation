@@ -8,6 +8,3 @@
         creates_path: C:\Program Files\7-Zip\7z.exe
         creates_version: 23.01
         state: present
-  become: true
-  become_method: runas
-  become_user: SYSTEM
