@@ -1,0 +1,19 @@
+---
+- name: Install vnc program
+  hosts: all
+  gather_facts: yes
+  tasks:
+    - name: Downloading and installing vnc
+      ansible.windows.win_package:
+        path: https://www.tightvnc.com/download/2.8.81/tightvnc-2.8.81-gpl-setup-64bit.msi
+        arguments:
+        - /quiet
+        - /norestart
+        - SET_USEVNCAUTHENTICATION=1
+        - VALUE_OF_USEVNCAUTHENTICATION=1
+        - SET_PASSWORD=1
+        - VALUE_OF_PASSWORD=demo1234
+      register: vnc_install_result
+
+    - set_fact:
+        sw_ver_installed: "{{ vnc_install_result.version }}"
