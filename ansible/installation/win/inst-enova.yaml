@@ -1,6 +1,7 @@
 ---
 - name: Install enova program
   hosts: all
+  gather_facts: yes
   tasks:
     - name: Downloading and installing enova
       ansible.windows.win_package:
