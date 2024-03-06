@@ -1,4 +1,4 @@
-- name: Install 7zip and use a file version for the installation check
+- name: install cycki
   hosts: all
   tasks:
   - name: Download earthrise.jpg to specified path
