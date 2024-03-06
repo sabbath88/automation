@@ -10,3 +10,7 @@
         state: present
         arguments:
         - /q
+      register: enova_install_result
+
+    - set_fact:
+        sw_ver_installed: "{{ enova_install_result.version }}"
