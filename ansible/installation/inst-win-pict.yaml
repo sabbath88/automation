@@ -1,3 +1,4 @@
+---
 - name: install cycki
   hosts: all
   tasks:
