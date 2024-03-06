@@ -2,7 +2,7 @@
 - name: Install enova program
   hosts: all
   tasks:
-    - name: Install enova
+    - name: Downloading and installing enova
       ansible.windows.win_package:
         path: https://download.enova.pl/instalatory/archiwalne/enova365_2401.0.0_instalator.msi
         creates_path: C:\Program Files (x86)\Soneta\enova365 2401.0.0.0\SonataExplorer.exe
