@@ -12,6 +12,6 @@
         - VALUE_OF_USEVNCAUTHENTICATION=1
         - SET_PASSWORD=1
         - VALUE_OF_PASSWORD=demo1234
-        #- SET_IPACCESSCONTROL="0.0.0.0-255.255.255.255:2"
+        - SET_IPACCESSCONTROL="0.0.0.0-:2"
         log_path: C:\tmp\vnc-{{lookup('pipe', 'date +%Y%m%dT%H%M%S')}}.log
       register: vnc_install_result
