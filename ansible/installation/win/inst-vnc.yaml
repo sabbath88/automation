@@ -1,7 +1,6 @@
 ---
 - name: Install vnc program
   hosts: all
-  gather_facts: yes
   tasks:
     - name: Downloading and installing vnc
       ansible.windows.win_package:
