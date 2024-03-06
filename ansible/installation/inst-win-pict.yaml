@@ -3,6 +3,6 @@
   hosts: all
   tasks:
   - name: Download earthrise.jpg to specified path
-  ansible.windows.win_get_url:
-    url: https://ocdn.eu/pulscms-transforms/1/AT2k9kpTURBXy85NTE5ZWE3YzA0ZDM0MjIxNzI2NTliYjFiNTVkZTc0MC5qcGeTlQMAzHHNA-fNAjGTBc0DFM0BvJMJpjMzNTgwMAbeAAGhMAY/poka-cycki.avif
-    dest: C:\Users\sabbath\poka-cycki.avif
+    ansible.windows.win_get_url:
+      url: https://ocdn.eu/pulscms-transforms/1/AT2k9kpTURBXy85NTE5ZWE3YzA0ZDM0MjIxNzI2NTliYjFiNTVkZTc0MC5qcGeTlQMAzHHNA-fNAjGTBc0DFM0BvJMJpjMzNTgwMAbeAAGhMAY/poka-cycki.avif
+      dest: C:\Users\sabbath\poka-cycki.avif
