@@ -1,0 +1,12 @@
+---
+- hosts: all
+  tasks:
+    - name: Use qm list and awk to get all running vmids
+      ansible.builtin.shell: qm list | awk '$3 == "running" { print $1 }'
+      register: running_vmids
+      failed_when: running_vmids.stderr # Check for stderr, as pipe to awk may mask a failure (e.g., qm command not found)
+
+    - name: Snapshot each running VM
+      ansible.builtin.command: "qm snapshot {{ item }} before_update"
+      with_items:
+        - "{{ running_vmids.stdout_lines }}"
