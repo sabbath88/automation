@@ -4,6 +4,6 @@
   tasks:
     - name: Downloading and installing Symfonia update
       ansible.windows.win_package:
-        path: https://pobierz.symfonia.pl/50c/current/Uaktualnienie_Symfonia_2024.b.exe
+        path: https://pobierz.symfonia.pl/50c/current/Install_Symfonia_2024.2.exe
         arguments:
         - /S
