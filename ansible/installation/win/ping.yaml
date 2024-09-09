@@ -1,10 +1,10 @@
 ---
-- hosts: all
+- hosts: test
   become: false
   gather_facts: false
 
   tasks:
-test  - name: ICMP ping from Control Node to Remote Node
+  - name: ICMP ping from Control Node to Remote Node
     delegate_to: localhost # or controlnode.example.com
     command: ping -c 2 "{{ inventory_hostname }}"
     # Because it is an reporting task
