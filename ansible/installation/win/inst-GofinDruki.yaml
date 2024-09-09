@@ -7,7 +7,7 @@
         path: https://druki.gofin.pl/download-msi
         arguments:
         - /quiet
-        log_path: C:\tmp\DrukiGofin-{{lookup('pipe', 'date +%Y%m%dT%H%M%S')}}.log
+        log_path: C:\ansi_log\DrukiGofin-{{lookup('pipe', 'date +%Y%m%dT%H%M%S')}}.log
       register: install_result
     
     - name: Debugging install_result
