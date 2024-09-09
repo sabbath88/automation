@@ -1,5 +1,5 @@
 ---
-- name: Install DrukiGofin program
+- name: Update DrukiGofin program
   hosts: all
   tasks:
     - name: Ensure C:\ansi_log directory exists
