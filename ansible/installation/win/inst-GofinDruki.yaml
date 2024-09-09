@@ -6,9 +6,7 @@
       ansible.windows.win_package:
         path: https://druki.gofin.pl/download-msi
         arguments:
-        - /install
-        - /norestart
-        - /passive
+        - /quiet
         log_path: C:\tmp\DrukiGofin-{{lookup('pipe', 'date +%Y%m%dT%H%M%S')}}.log
       register: install_result
     
