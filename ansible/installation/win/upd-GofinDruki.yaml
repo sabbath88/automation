@@ -2,6 +2,11 @@
 - name: Install DrukiGofin program
   hosts: all
   tasks:
+    - name: Ensure C:\ansi_log directory exists
+      ansible.windows.win_file:
+        path: C:\ansi_log
+        state: directory
+        
     - name: Downloading and installing DrukiGofin
       ansible.windows.win_package:
         path: https://druki.gofin.pl/download-msi
