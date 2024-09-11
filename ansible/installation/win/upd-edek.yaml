@@ -3,6 +3,11 @@
   hosts: all
   gather_facts: yes
   tasks:
+    - name: Ensure C:\ansi_log directory exists
+      ansible.windows.win_file:
+        path: C:\ansi_log
+        state: directory
+  
     - name: Downloading and installing edek
       ansible.windows.win_package:
         path: https://www.bcsopot.com.pl/EDEK/bcEDEK(15)_Upgrate.exe
@@ -10,6 +15,7 @@
         state: present
         arguments:
         - /s
+        log_path: C:\ansi_log\DrukiGofin-{{ lookup('pipe', 'date +%Y%m%dT%H%M%S') }}.log
       register: edek_install_result
 
     - name: Debugging install_result
