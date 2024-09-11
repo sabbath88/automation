@@ -11,8 +11,6 @@
     - name: Downloading and installing edek
       ansible.windows.win_package:
         path: https://www.bcsopot.com.pl/EDEK/bcEDEK(15)_Upgrate.exe
-        creates_path: C:\Programy\bc\bcEDEK\bcEDEK.exe
-        state: present
         arguments:
         - /s
         log_path: C:\ansi_log\Edek-{{ lookup('pipe', 'date +%Y%m%dT%H%M%S') }}.log
