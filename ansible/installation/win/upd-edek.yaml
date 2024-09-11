@@ -12,5 +12,9 @@
         - /s
       register: edek_install_result
 
-    - set_fact:
-        sw_ver_installed: "{{ edek_install_result.creates_version }}"
+    - name: Debugging install_result
+      debug:
+        var: edek_install_result
+
+#    - set_fact:
+#        sw_ver_installed: "{{ edek_install_result.creates_version }}"
