@@ -7,8 +7,7 @@
           - SecurityUpdates
           - CriticalUpdates
           - UpdateRollups
-              category_names: '*'
-          - reboot: true
+        reboot: true
   become: true
   become_method: runas
   become_user: SYSTEM
