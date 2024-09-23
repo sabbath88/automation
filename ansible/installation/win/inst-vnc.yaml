@@ -17,10 +17,10 @@
 #      register: vnc_install_result
 #
 ---
-- name: Install TightVNC on Windows 10
-  hosts: all
+- name: Fetch TightVNC latest 64-bit MSI package
+  hosts: localhost
   tasks:
-    - name: Download TightVNC latest 64-bit MSI package
+    - name: Get the download page content
       ansible.builtin.uri:
         url: https://www.tightvnc.com/download.php
       register: page_content
@@ -29,9 +29,17 @@
       set_fact:
         download_url: "{{ page_content.content | regex_search('https://.*tightvnc.*64.*\\.msi(?=\")') }}"
 
-    - name: Download the latest 64-bit TightVNC MSI package to Windows machine
-      win_get_url:
+    - name: Download the latest 64-bit TightVNC MSI package to local
+      ansible.builtin.get_url:
         url: "{{ download_url }}"
+        dest: /tmp/tightvnc_latest_x64.msi
+
+- name: Install TightVNC on Windows 10
+  hosts: windows
+  tasks:
+    - name: Copy TightVNC MSI package to Windows machine
+      win_copy:
+        src: /tmp/tightvnc_latest_x64.msi
         dest: C:\temp\tightvnc_latest_x64.msi
 
     - name: Install TightVNC MSI package
@@ -46,3 +54,4 @@
         - SET_PASSWORD=1
         - VALUE_OF_PASSWORD=demo1234
         - SET_IPACCESSCONTROL="0.0.0.0-:2"
+  
