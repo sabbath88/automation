@@ -12,9 +12,18 @@
       become_method: runas
       become_user: SYSTEM
 
+    - name: Debug update results
+      debug:
+        var: update_result
+
     - name: Reboot if required
       ansible.windows.win_reboot:
         reboot_timeout: 600
+      when: update_result.reboot_required
+
+    - name: Wait for the system to come back online
+      wait_for_connection:
+        delay: 20
       when: update_result.reboot_required
 
     - name: Run Windows updates again (after reboot)
