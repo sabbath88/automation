@@ -18,7 +18,7 @@
 #
 ---
 - name: Fetch TightVNC latest 64-bit MSI package
-  hosts: localhost
+  hosts: all
   tasks:
     - name: Get the download page content
       ansible.builtin.uri:
