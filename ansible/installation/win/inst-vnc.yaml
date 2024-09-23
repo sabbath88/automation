@@ -18,7 +18,7 @@
 #
 ---
 - name: Install TightVNC on Windows 10
-  hosts: windows
+  hosts: all
   tasks:
     - name: Download TightVNC latest 64-bit MSI package
       ansible.builtin.uri:
