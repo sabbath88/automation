@@ -38,7 +38,7 @@
           - VALUE_OF_PASSWORD=mainpass
           - SET_VIEWONLYPASSWORD=1
           - VALUE_OF_VIEWONLYPASSWORD=viewpass
-      #    - SET_IPACCESSCONTROL="0.0.0.0-:2"
+          - SET_IPACCESSCONTROL="0.0.0.0-255.255.255.255:2"
 
     - name: Cleanup TightVNC MSI package from Windows machine
       win_file:
