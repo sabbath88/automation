@@ -30,8 +30,8 @@
         path: "C:\\Users\\{{ ansible_user }}\\AppData\\Local\\Temp\\tightvnc_latest_x64.msi"
         state: present
         arguments:
-          - /quiet
-          - /n #no GUI
+         # - /quiet
+         # - /n #no GUI
           - /norestart
           - ADDLOCAL="Server"
           - SERVER_REGISTER_AS_SERVICE=1
