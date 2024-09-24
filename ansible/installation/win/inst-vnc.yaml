@@ -1,16 +1,15 @@
 ---
-- name: Fetch TightVNC latest 64-bit MSI package
+- name: Fetch TightVNC latest 64-bit MSI package using curl
   hosts: localhost
   tasks:
-    - name: Get the download page content
-      ansible.builtin.uri:
-        url: https://www.tightvnc.com/download.php
-        return_content: yes
-      register: page_content
+    - name: Fetch the download page content with curl
+      ansible.builtin.shell: |
+        curl -s https://www.tightvnc.com/download.php | grep -oP 'https://.*tightvnc.*64.*\.msi(?=")'
+      register: curl_output
 
-    - name: Extract the 64-bit MSI download URL
+    - name: Set the download URL from curl output
       set_fact:
-        download_url: "{{ page_content.content | regex_search('https://.*tightvnc.*64.*\\.msi(?=\")', '\\g<0>') }}"
+        download_url: "{{ curl_output.stdout }}"
 
     - name: Debug the extracted download URL
       debug:
