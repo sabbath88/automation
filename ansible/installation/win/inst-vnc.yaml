@@ -23,11 +23,11 @@
     - name: Ensure the TightVNC MSI package is downloaded
       win_get_url:
         url: "{{ hostvars['localhost'].download_url }}"
-        dest: "%USERPROFILE%\\AppData\\Local\\Temp\\tightvnc_latest_x64.msi"
+        dest: "C:\\Users\\{{ ansible_user }}\\AppData\\Local\\Temp\\tightvnc_latest_x64.msi"
 
     - name: Install TightVNC MSI package
       win_package:
-        path: "%USERPROFILE%\\AppData\\Local\\Temp\\tightvnc_latest_x64.msi"
+        path: "C:\\Users\\{{ ansible_user }}\\AppData\\Local\\Temp\\tightvnc_latest_x64.msi"
         state: present
         arguments:
           - /quiet
@@ -40,7 +40,7 @@
 
     - name: Cleanup TightVNC MSI package from Windows machine
       win_file:
-        path: "%USERPROFILE%\\AppData\\Local\\Temp\\tightvnc_latest_x64.msi"
+        path: "C:\\Users\\{{ ansible_user }}\\AppData\\Local\\Temp\\tightvnc_latest_x64.msi"
         state: absent
 
 - name: Cleanup Temporary Files on Control Node
