@@ -25,6 +25,11 @@
         url: "{{ hostvars['localhost'].download_url }}"
         dest: "C:\\Users\\{{ ansible_user }}\\AppData\\Local\\Temp\\tightvnc_latest_x64.msi"
 
+    - name: Ensure C:\ansi_log directory exists
+      ansible.windows.win_file:
+        path: C:\ansi_log
+        state: directory
+
     - name: Install TightVNC MSI package
       win_package:
         path: "C:\\Users\\{{ ansible_user }}\\AppData\\Local\\Temp\\tightvnc_latest_x64.msi"
@@ -48,6 +53,12 @@
           - VALUE_OF_IPACCESSCONTROL="0.0.0.0-255.255.255.255:2"
           - SET_REMOVEWALLPAPER=1 
           - VALUE_OF_REMOVEWALLPAPER=0
+        log_path: C:\ansi_log\tightvnc-{{ lookup('pipe', 'date +%Y%m%dT%H%M%S') }}.log
+      register: install_result
+
+    - name: Debugging install_result
+      debug:
+        var: install_result
 
     - name: Cleanup TightVNC MSI package from Windows machine
       win_file:
