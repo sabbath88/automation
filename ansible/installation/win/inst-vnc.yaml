@@ -37,22 +37,22 @@
         arguments:
           - /quiet
           - /norestart
-          - ADDLOCAL=Server
-          - SERVER_REGISTER_AS_SERVICE=1
-          - SERVER_ADD_FIREWALL_EXCEPTION=1
-          - SERVER_ALLOW_SAS=1 
-          - SET_USEVNCAUTHENTICATION=1 
-          - VALUE_OF_USEVNCAUTHENTICATION=1 
-          - SET_PASSWORD=1 
-          - VALUE_OF_PASSWORD=accesspass 
-          - SET_USECONTROLAUTHENTICATION=1 
-          - VALUE_OF_USECONTROLAUTHENTICATION=1 
-          - SET_CONTROLPASSWORD=1 
-          - VALUE_OF_CONTROLPASSWORD=adminpass 
-          - SET_IPACCESSCONTROL=1
+          - ADDLOCAL="Server"
+          - SERVER_REGISTER_AS_SERVICE="1"
+          - SERVER_ADD_FIREWALL_EXCEPTION="1"
+          - SERVER_ALLOW_SAS="1"
+          - SET_USEVNCAUTHENTICATION="1"
+          - VALUE_OF_USEVNCAUTHENTICATION="1"
+          - SET_PASSWORD="1"
+          - VALUE_OF_PASSWORD="accesspass"
+          - SET_USECONTROLAUTHENTICATION="1"
+          - VALUE_OF_USECONTROLAUTHENTICATION="1"
+          - SET_CONTROLPASSWORD="1"
+          - VALUE_OF_CONTROLPASSWORD="adminpass"
+          - SET_IPACCESSCONTROL="1"
           - VALUE_OF_IPACCESSCONTROL="0.0.0.0-255.255.255.255:2"
-          - SET_REMOVEWALLPAPER=1 
-          - VALUE_OF_REMOVEWALLPAPER=0
+          - SET_REMOVEWALLPAPER="1"
+          - VALUE_OF_REMOVEWALLPAPER="0"
         log_path: C:\ansi_log\tightvnc-{{ lookup('pipe', 'date +%Y%m%dT%H%M%S') }}.log
       register: install_result
 
