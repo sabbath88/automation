@@ -10,6 +10,16 @@
       delegate_to: localhost
       failed_when: page_content.status != 200  # Fail if the response is not HTTP 200 OK
 
+   - name: Extract the 64-bit MSI download URL
+      set_fact:
+        download_url: "{{ page_content.content | regex_search('https://.*tightvnc.*64.*\\.msi(?=\")', '\\g<0>') }}"
+      delegate_to: localhost
+
+    - name: Debug the download URL
+      debug:
+        var: download_url
+      delegate_to: localhost
+
     - name: Debug the page content
       debug:
         var: page_content
