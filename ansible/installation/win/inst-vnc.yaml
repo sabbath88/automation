@@ -1,0 +1,14 @@
+---
+- name: Fetch TightVNC latest 64-bit MSI package
+  hosts: windows
+  tasks:
+    - name: Get the download page content (from control node)
+      ansible.builtin.uri:
+        url: https://www.tightvnc.com/download.php
+      register: page_content
+      delegate_to: localhost
+
+    - name: Debug the page content
+      debug:
+        var: page_content
+      delegate_to: localhost
