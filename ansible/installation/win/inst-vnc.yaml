@@ -1,5 +1,5 @@
 ---
-- name: Fetch TightVNC latest 64-bit MSI package using curl
+- name: Fetch and Install TightVNC MSI package
   hosts: localhost
   tasks:
     - name: Fetch the download page content with curl
@@ -15,7 +15,40 @@
       debug:
         var: download_url
 
-    - name: Download TightVNC MSI package
+    - name: Download TightVNC MSI package to Linux control node
       ansible.builtin.get_url:
         url: "{{ download_url }}"
         dest: /tmp/tightvnc_latest_x64.msi
+
+    - name: Cleanup TightVNC MSI package from Linux control node
+      ansible.builtin.file:
+        path: /tmp/tightvnc_latest_x64.msi
+        state: absent
+      when: download_url is defined
+
+- name: Install TightVNC on Windows and cleanup
+  hosts: windows
+  tasks:
+    - name: Download TightVNC MSI package to Windows machine
+      win_get_url:
+        url: "{{ download_url }}"
+        dest: "%USERPROFILE%\\AppData\\Local\\Temp\\tightvnc_latest_x64.msi"
+
+    - name: Install TightVNC MSI package
+      win_package:
+        path: "%USERPROFILE%\\AppData\\Local\\Temp\\tightvnc_latest_x64.msi"
+        state: present
+        arguments:
+          - /quiet
+          - /norestart
+          - SET_USEVNCAUTHENTICATION=1
+          - VALUE_OF_USEVNCAUTHENTICATION=1
+          - SET_PASSWORD=1
+          - VALUE_OF_PASSWORD=demo1234
+          - SET_IPACCESSCONTROL="0.0.0.0-:2"
+
+    - name: Cleanup TightVNC MSI package from Windows machine
+      win_file:
+        path: "%USERPROFILE%\\AppData\\Local\\Temp\\tightvnc_latest_x64.msi"
+        state: absent
+      when: download_url is defined
