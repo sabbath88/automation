@@ -1,32 +1,22 @@
 ---
 - name: Fetch TightVNC latest 64-bit MSI package
-  hosts: all
+  hosts: localhost
   tasks:
-    - name: Get the download page content (from control node)
+    - name: Get the download page content
       ansible.builtin.uri:
         url: https://www.tightvnc.com/download.php
+        return_content: yes
       register: page_content
-      delegate_to: localhost
-
-    - name: Debug the page content
-      debug:
-        var: page_content
-      delegate_to: localhost
-
-    - name: Get the download page content (from control node)
-      ansible.builtin.uri:
-        url: https://www.tightvnc.com/download.php
-        return_content: yes  # Ensure it returns the page content
-      register: page_content
-      delegate_to: localhost
-      failed_when: page_content.status != 200  # Fail if the response is not HTTP 200 OK
 
     - name: Extract the 64-bit MSI download URL
       set_fact:
         download_url: "{{ page_content.content | regex_search('https://.*tightvnc.*64.*\\.msi(?=\")', '\\g<0>') }}"
-      delegate_to: localhost
 
-    - name: Debug the download URL
+    - name: Debug the extracted download URL
       debug:
         var: download_url
-      delegate_to: localhost
+
+    - name: Download TightVNC MSI package
+      ansible.builtin.get_url:
+        url: "{{ download_url }}"
+        dest: /tmp/tightvnc_latest_x64.msi
