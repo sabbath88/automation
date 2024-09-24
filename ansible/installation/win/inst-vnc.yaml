@@ -1,40 +1,27 @@
 ---
 - name: Fetch and Install TightVNC MSI package
-  hosts: localhost
+  hosts: all
   tasks:
-    - name: Fetch the download page content with curl
+    - name: Fetch the download page content with curl (only on localhost)
       ansible.builtin.shell: |
         curl -s https://www.tightvnc.com/download.php | grep -oP 'https://.*tightvnc.*64.*\.msi(?=")'
       register: curl_output
+      delegate_to: localhost
+      run_once: true
+      when: inventory_hostname == "localhost"
 
-    - name: Set the download URL from curl output
+    - name: Set the download URL from curl output (only on localhost)
       set_fact:
         download_url: "{{ curl_output.stdout }}"
+      when: inventory_hostname == "localhost"
 
-    - name: Debug the extracted download URL
-      debug:
-        var: download_url
-
-    - name: Download TightVNC MSI package to Linux control node
-      ansible.builtin.get_url:
-        url: "{{ download_url }}"
-        dest: /tmp/tightvnc_latest_x64.msi
-
-    - name: Cleanup TightVNC MSI package from Linux control node
-      ansible.builtin.file:
-        path: /tmp/tightvnc_latest_x64.msi
-        state: absent
-      when: download_url is defined
-
-- name: Install TightVNC on Windows and cleanup
-  hosts: all
-  tasks:
-    - name: Download TightVNC MSI package to Windows machine
+    - name: Download TightVNC MSI package to Windows machine (only on Windows)
       win_get_url:
-        url: "{{ download_url }}"
+        url: "{{ hostvars['localhost'].download_url }}"
         dest: "%USERPROFILE%\\AppData\\Local\\Temp\\tightvnc_latest_x64.msi"
+      when: inventory_hostname != "localhost"
 
-    - name: Install TightVNC MSI package
+    - name: Install TightVNC MSI package (only on Windows)
       win_package:
         path: "%USERPROFILE%\\AppData\\Local\\Temp\\tightvnc_latest_x64.msi"
         state: present
@@ -46,9 +33,16 @@
           - SET_PASSWORD=1
           - VALUE_OF_PASSWORD=demo1234
           - SET_IPACCESSCONTROL="0.0.0.0-:2"
+      when: inventory_hostname != "localhost"
 
-    - name: Cleanup TightVNC MSI package from Windows machine
+    - name: Cleanup TightVNC MSI package from Windows machine (only on Windows)
       win_file:
         path: "%USERPROFILE%\\AppData\\Local\\Temp\\tightvnc_latest_x64.msi"
         state: absent
-      when: download_url is defined
+      when: inventory_hostname != "localhost"
+
+    - name: Cleanup TightVNC MSI package from Linux control node (only on localhost)
+      ansible.builtin.file:
+        path: /tmp/tightvnc_latest_x64.msi
+        state: absent
+      when: inventory_hostname == "localhost"
