@@ -5,8 +5,10 @@
     - name: Get the download page content (from control node)
       ansible.builtin.uri:
         url: https://www.tightvnc.com/download.php
+        return_content: yes  # Ensure it returns the page content
       register: page_content
       delegate_to: localhost
+      failed_when: page_content.status != 200  # Fail if the response is not HTTP 200 OK
 
     - name: Debug the page content
       debug:
