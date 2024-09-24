@@ -27,7 +27,7 @@
       when: download_url is defined
 
 - name: Install TightVNC on Windows and cleanup
-  hosts: windows
+  hosts: all
   tasks:
     - name: Download TightVNC MSI package to Windows machine
       win_get_url:
