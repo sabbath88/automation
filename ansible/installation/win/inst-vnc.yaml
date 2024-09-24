@@ -33,7 +33,7 @@
          # - /quiet
          # - /n #no GUI
           - /norestart
-          - ADDLOCAL="Server"
+          - ADDLOCAL=Server
           - SERVER_REGISTER_AS_SERVICE=1
           - SERVER_ADD_FIREWALL_EXCEPTION=1
           - SERVER_ALLOW_SAS=1 
