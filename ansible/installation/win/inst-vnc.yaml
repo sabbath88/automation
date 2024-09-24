@@ -1,6 +1,6 @@
 ---
 - name: Fetch TightVNC latest 64-bit MSI package
-  hosts: WinLab
+  hosts: all
   tasks:
     - name: Get the download page content (from control node)
       ansible.builtin.uri:
