@@ -15,12 +15,12 @@
         download_url: "{{ page_content.content | regex_search('https://.*tightvnc.*64.*\\.msi(?=\")', '\\g<0>') }}"
       delegate_to: localhost
 
-    - name: Debug the download URL
+   - name: Debug the download URL
       debug:
         var: download_url
       delegate_to: localhost
 
-    - name: Debug the page content
+   - name: Debug the page content
       debug:
         var: page_content
       delegate_to: localhost
