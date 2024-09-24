@@ -1,21 +1,3 @@
-#---
-#- name: Install vnc program
-#  hosts: all
-#  tasks:
-#    - name: Downloading and installing vnc
-#      ansible.windows.win_package:
-#        path: https://www.tightvnc.com/download/2.8.81/tightvnc-2.8.81-gpl-setup-64bit.msi
-#        arguments:
-#        - /quiet
-#        - /norestart
-#        - SET_USEVNCAUTHENTICATION=1
-#        - VALUE_OF_USEVNCAUTHENTICATION=1
-#        - SET_PASSWORD=1
-#        - VALUE_OF_PASSWORD=demo1234
-        #- SET_IPACCESSCONTROL="0.0.0.0-:2"
-#        log_path: C:\tmp\vnc-{{lookup('pipe', 'date +%Y%m%dT%H%M%S')}}.log
-#      register: vnc_install_result
-#
 ---
 - name: Fetch TightVNC latest 64-bit MSI package
   hosts: all
@@ -29,17 +11,9 @@
       set_fact:
         download_url: "{{ page_content.content | regex_search('https://.*tightvnc.*64.*\\.msi(?=\")') }}"
 
-    - name: Download the latest 64-bit TightVNC MSI package to local
-      ansible.builtin.get_url:
+    - name: Download TightVNC MSI package to Windows machine
+      win_get_url:
         url: "{{ download_url }}"
-        dest: /tmp/tightvnc_latest_x64.msi
-
-- name: Install TightVNC on Windows 10
-  hosts: windows
-  tasks:
-    - name: Copy TightVNC MSI package to Windows machine
-      win_copy:
-        src: /tmp/tightvnc_latest_x64.msi
         dest: C:\temp\tightvnc_latest_x64.msi
 
     - name: Install TightVNC MSI package
@@ -54,4 +28,3 @@
         - SET_PASSWORD=1
         - VALUE_OF_PASSWORD=demo1234
         - SET_IPACCESSCONTROL="0.0.0.0-:2"
-  
