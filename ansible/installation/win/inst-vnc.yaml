@@ -1,6 +1,6 @@
 ---
-- name: Fetch TightVNC latest 64-bit MSI package
-  hosts: all
+- name: Fetch TightVNC latest 64-bit MSI package (Linux/Ansible controller)
+  hosts: localhost  # Run this only on the Ansible controller or a Linux machine
   tasks:
     - name: Get the download page content
       ansible.builtin.uri:
@@ -10,7 +10,11 @@
     - name: Extract the 64-bit MSI download URL
       set_fact:
         download_url: "{{ page_content.content | regex_search('https://.*tightvnc.*64.*\\.msi(?=\")') }}"
+      delegate_to: localhost  # Ensures the fact is set on the controller, not on Windows hosts
 
+- name: Install TightVNC on Windows 10
+  hosts: all
+  tasks:
     - name: Download TightVNC MSI package to Windows machine
       win_get_url:
         url: "{{ download_url }}"
