@@ -34,9 +34,10 @@
       ansible.windows.win_package:
         path: "C:\\Users\\{{ ansible_user }}\\AppData\\Local\\Temp\\tightvnc_latest_x64.msi"
         state: present
-        arguments: >
-          /quiet
-          /norestart
+        arguments:
+          - /quiet
+          - /norestart
+        properties: >
           ADDLOCAL=Server
           SERVER_REGISTER_AS_SERVICE=1
           SERVER_ADD_FIREWALL_EXCEPTION=1
