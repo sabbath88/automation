@@ -11,6 +11,7 @@
     - name: Set the download URL from curl output
       set_fact:
         download_url: "{{ curl_output.stdout }}"
+      ignore_errors: yes
 
     - name: Debug the extracted download URL
       debug:
